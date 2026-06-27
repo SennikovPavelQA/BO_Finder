@@ -123,9 +123,16 @@ function renderUI(bookmarks) {
             titleDiv.className = 'bookmark-title';
             
             let displayTitle = bm.title || bm.url;
+            
+            // Удаляем "www." из заголовка (gi - игнорирует регистр и удаляет все совпадения)
+            displayTitle = displayTitle.replace(/www\./gi, '');
+            
+            // Убираем случайные пробелы в начале, если они остались
+            displayTitle = displayTitle.trim();
+
             // Проверяем, что строка не пустая и НЕ начинается с цифры
             if (displayTitle && !/^\d/.test(displayTitle)) {
-                // Делаем первую букву заглавной, остальной текст оставляем как есть
+                // Делаем первую букву заглавной
                 displayTitle = displayTitle.charAt(0).toUpperCase() + displayTitle.slice(1);
             }
             
