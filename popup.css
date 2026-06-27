@@ -184,3 +184,66 @@ body {
     border-radius: 2px; /* Слегка уменьшили скругление для плотного текста */
     /* Убрали padding, чтобы буквы внутри одного слова не раздвигались */
 }
+
+/* Автоматическая темная тема */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #202124;
+    }
+    
+    .search-container, 
+    .sidebar {
+        background-color: #292a2d;
+        border-color: #3c4043;
+    }
+    
+    #searchInput {
+        background-color: #202124;
+        border-color: #5f6368;
+        color: #e8eaed;
+    }
+    
+    #searchInput:focus {
+        border-color: #8ab4f8; /* Фирменный голубой Google для темной темы */
+    }
+    
+    .letter-title {
+        color: #e8eaed;
+        border-color: #3c4043;
+    }
+    
+    .bookmark-title {
+        color: #e8eaed;
+    }
+    
+    .bookmark-url, 
+    .sidebar div {
+        color: #9aa0a6;
+    }
+    
+    .sidebar div:hover, 
+    .bookmark-item:hover {
+        background-color: rgba(255, 255, 255, 0.08); /* Полупрозрачный фон наведения */
+    }
+    
+    .sidebar div:hover {
+        color: #8ab4f8;
+    }
+    
+    .bookmark-item {
+        color: #8ab4f8;
+    }
+    
+    /* Подсветка текста поиска в темной теме */
+    .highlight {
+        background-color: #202124; /* Мягкий голубой фон */
+        color: #8ab4f8;
+    }
+
+    /* Адаптация скроллбара */
+    ::-webkit-scrollbar-thumb { background: #5f6368; }
+    ::-webkit-scrollbar-thumb:hover { background: #80868b; }
+    
+    .sidebar::-webkit-scrollbar-thumb { background: #5f6368; }
+    .sidebar::-webkit-scrollbar-thumb:hover { background: #80868b; }
+}
