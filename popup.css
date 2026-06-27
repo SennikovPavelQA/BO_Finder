@@ -162,3 +162,17 @@ body {
 .sidebar::-webkit-scrollbar-thumb:hover {
     background: #bdbdbd;
 }
+
+/* Анимация ошибки ввода */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    50% { transform: translateX(4px); }
+    75% { transform: translateX(-4px); }
+}
+
+.input-error {
+    animation: shake 0.3s ease-in-out;
+    border-color: #ea4335 !important; /* Красный цвет в стиле Google */
+    background-color: #fce8e6 !important; /* Светло-красный фон */
+}

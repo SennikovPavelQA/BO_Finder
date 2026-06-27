@@ -30,6 +30,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Слушатель для строки поиска
     searchInput.addEventListener('input', (e) => {
+        const originalValue = e.target.value;
+        const sanitizedValue = originalValue.replace(/[^a-zA-Z0-9\s.,?!/@:_\-]/g, '');
+        
+        // Если был введен запрещенный символ (кириллица и т.д.)
+        if (originalValue !== sanitizedValue) {
+            e.target.value = sanitizedValue; // Удаляем символ
+            
+            // Перезапускаем анимацию ошибки
+            searchInput.classList.remove('input-error');
+            void searchInput.offsetWidth; // Магия браузера для сброса анимации
+            searchInput.classList.add('input-error');
+            
+            // Убираем класс после окончания анимации (300мс)
+            setTimeout(() => {
+                searchInput.classList.remove('input-error');
+            }, 300);
+        }
+        
         const query = e.target.value.toLowerCase();
         const filtered = allBookmarks.filter(bm => 
             bm.title.toLowerCase().includes(query) || 
