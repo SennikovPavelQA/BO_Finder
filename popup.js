@@ -55,15 +55,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             return; // Ничего не делаем, ждем вторую букву
         }
 
-        // БЕСТ ПРАКТИС 3: Умный поиск
+        // БЕСТ ПРАКТИС 3: Умный поиск (только по заголовкам)
         const filtered = allBookmarks.filter(bm => {
-            const inTitle = bm.title.toLowerCase().includes(query);
-            
-            // Очищаем URL от http://, https:// и www. для честного поиска
-            const cleanUrl = bm.url.toLowerCase().replace(/^https?:\/\/(www\.)?/, '');
-            const inUrl = cleanUrl.includes(query);
-            
-            return inTitle || inUrl;
+            return bm.title.toLowerCase().includes(query);
         });
         
         renderUI(filtered, query);
@@ -130,16 +124,15 @@ function renderUI(bookmarks, query = '') {
                 displayTitle = displayTitle.charAt(0).toUpperCase() + displayTitle.slice(1);
             }
 
-            // Применяем мягкую подсветку
+            // Применяем мягкую подсветку только для заголовка
             const highlightedTitle = highlightText(displayTitle, query);
-            const highlightedUrl = highlightText(bm.url, query);
 
             contentHTML += `
                 <a class="bookmark-item" href="${bm.url}" target="_blank">
                     <img class="favicon" src="${getFaviconUrl(bm.url)}" alt="">
                     <div class="bookmark-text-container">
                         <div class="bookmark-title">${highlightedTitle}</div>
-                        <span class="bookmark-url">${highlightedUrl}</span>
+                        <span class="bookmark-url">${bm.url}</span>
                     </div>
                 </a>
             `;
