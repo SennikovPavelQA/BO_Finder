@@ -176,3 +176,11 @@ body {
     border-color: #ea4335 !important; /* Красный цвет в стиле Google */
     background-color: #fce8e6 !important; /* Светло-красный фон */
 }
+
+/* Подсветка текста при поиске */
+.highlight {
+    background-color: #e8eaed;
+    color: #202124;
+    border-radius: 2px; /* Слегка уменьшили скругление для плотного текста */
+    /* Убрали padding, чтобы буквы внутри одного слова не раздвигались */
+}

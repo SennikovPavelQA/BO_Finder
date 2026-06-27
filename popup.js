@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             return inTitle || inUrl;
         });
         
-        renderUI(filtered);
+        renderUI(filtered, query);
     });
 });
 
@@ -97,14 +97,12 @@ function extractLinks(node) {
 }
 
 // Отрисовка интерфейса
-function renderUI(bookmarks) {
+function renderUI(bookmarks, query = '') {
     const sidebar = document.getElementById('sidebar');
     const content = document.getElementById('content');
     
-    sidebar.innerHTML = '';
-    content.innerHTML = '';
-
     if (bookmarks.length === 0) {
+        sidebar.innerHTML = '';
         content.innerHTML = '<p style="color:#5f6368">Ничего не найдено.</p>';
         return;
     }
@@ -112,80 +110,56 @@ function renderUI(bookmarks) {
     // Группируем и сортируем закладки
     const groups = groupAndSort(bookmarks);
 
-    // Создаем элементы DOM
+    let sidebarHTML = '';
+    let contentHTML = '';
+
+    // Формируем HTML через шаблонные строки
     for (const letter of Object.keys(groups).sort()) {
-        // Создаем букву в боковом меню
-        const letterNav = document.createElement('div');
-        letterNav.textContent = letter;
-        letterNav.addEventListener('click', () => {
+        sidebarHTML += `<div data-letter="${letter}">${letter}</div>`;
+
+        contentHTML += `
+            <div class="letter-group" id="group-${letter}">
+                <div class="letter-title">${letter}</div>
+        `;
+
+        groups[letter].forEach(bm => {
+            let displayTitle = bm.title || bm.url;
+            displayTitle = displayTitle.replace(/www\./gi, '').trim();
+            
+            if (displayTitle && !/^\d/.test(displayTitle)) {
+                displayTitle = displayTitle.charAt(0).toUpperCase() + displayTitle.slice(1);
+            }
+
+            // Применяем мягкую подсветку
+            const highlightedTitle = highlightText(displayTitle, query);
+            const highlightedUrl = highlightText(bm.url, query);
+
+            contentHTML += `
+                <a class="bookmark-item" href="${bm.url}" target="_blank">
+                    <img class="favicon" src="${getFaviconUrl(bm.url)}" alt="">
+                    <div class="bookmark-text-container">
+                        <div class="bookmark-title">${highlightedTitle}</div>
+                        <span class="bookmark-url">${highlightedUrl}</span>
+                    </div>
+                </a>
+            `;
+        });
+
+        contentHTML += `</div>`;
+    }
+
+    // Вставляем сформированный HTML в DOM
+    sidebar.innerHTML = sidebarHTML;
+    content.innerHTML = contentHTML;
+
+    // Вешаем слушатели событий
+    sidebar.querySelectorAll('div').forEach(letterNav => {
+        letterNav.addEventListener('click', (e) => {
+            const letter = e.target.dataset.letter;
             const section = document.getElementById(`group-${letter}`);
             if (section) section.scrollIntoView();
         });
-        sidebar.appendChild(letterNav);
-
-        // Создаем блок контента для этой буквы
-        const groupDiv = document.createElement('div');
-        groupDiv.className = 'letter-group';
-        groupDiv.id = `group-${letter}`;
-
-        const groupTitle = document.createElement('div');
-        groupTitle.className = 'letter-title';
-        groupTitle.textContent = letter;
-        groupDiv.appendChild(groupTitle);
-
-        groups[letter].forEach(bm => {
-            const linkElement = document.createElement('a');
-            linkElement.className = 'bookmark-item';
-            linkElement.href = bm.url;
-            linkElement.target = '_blank'; // открывать в новой вкладке
-
-            // 1. Создаем иконку
-            const iconImg = document.createElement('img');
-            iconImg.className = 'favicon';
-            iconImg.src = getFaviconUrl(bm.url);
-            iconImg.alt = ''; // пустой alt, так как это декоративный элемент
-
-            // 2. Создаем контейнер для текста
-            const textContainer = document.createElement('div');
-            textContainer.className = 'bookmark-text-container';
-
-            // 3. Создаем заголовок безопасно (через textContent)
-            const titleDiv = document.createElement('div');
-            titleDiv.className = 'bookmark-title';
-            
-            let displayTitle = bm.title || bm.url;
-            
-            // Удаляем "www." из заголовка (gi - игнорирует регистр и удаляет все совпадения)
-            displayTitle = displayTitle.replace(/www\./gi, '');
-            
-            // Убираем случайные пробелы в начале, если они остались
-            displayTitle = displayTitle.trim();
-
-            // Проверяем, что строка не пустая и НЕ начинается с цифры
-            if (displayTitle && !/^\d/.test(displayTitle)) {
-                // Делаем первую букву заглавной
-                displayTitle = displayTitle.charAt(0).toUpperCase() + displayTitle.slice(1);
-            }
-            
-            titleDiv.textContent = displayTitle;
-
-            // 4. Создаем подпись со ссылкой безопасно
-            const urlSpan = document.createElement('span');
-            urlSpan.className = 'bookmark-url';
-            urlSpan.textContent = bm.url;
-
-            // Собираем матрешку
-            textContainer.appendChild(titleDiv);
-            textContainer.appendChild(urlSpan);
-            
-            linkElement.appendChild(iconImg);
-            linkElement.appendChild(textContainer);
-            
-            groupDiv.appendChild(linkElement);
-        });
-
-        content.appendChild(groupDiv);
-    }
+    });
 }
 
 // Логика группировки по первой букве
@@ -220,4 +194,18 @@ function getFaviconUrl(url) {
     faviconUrl.searchParams.set("pageUrl", url);
     faviconUrl.searchParams.set("size", "32");
     return faviconUrl.toString();
+}
+
+// Экранирование спецсимволов для регулярного выражения
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// Функция подсветки совпадений
+function highlightText(text, query) {
+    if (!query) return text;
+    // gi - глобальный поиск без учета регистра
+    const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+    // Оборачиваем найденное (сохраняя оригинальный регистр текста)
+    return text.replace(regex, '<span class="highlight">$1</span>');
 }
