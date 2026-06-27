@@ -33,26 +33,39 @@ document.addEventListener('DOMContentLoaded', async () => {
         const originalValue = e.target.value;
         const sanitizedValue = originalValue.replace(/[^a-zA-Z0-9\s.,?!/@:_\-]/g, '');
         
-        // Если был введен запрещенный символ (кириллица и т.д.)
+        // Визуальная ошибка при вводе кириллицы
         if (originalValue !== sanitizedValue) {
-            e.target.value = sanitizedValue; // Удаляем символ
-            
-            // Перезапускаем анимацию ошибки
+            e.target.value = sanitizedValue;
             searchInput.classList.remove('input-error');
-            void searchInput.offsetWidth; // Магия браузера для сброса анимации
+            void searchInput.offsetWidth; 
             searchInput.classList.add('input-error');
-            
-            // Убираем класс после окончания анимации (300мс)
-            setTimeout(() => {
-                searchInput.classList.remove('input-error');
-            }, 300);
+            setTimeout(() => searchInput.classList.remove('input-error'), 300);
         }
         
-        const query = e.target.value.toLowerCase();
-        const filtered = allBookmarks.filter(bm => 
-            bm.title.toLowerCase().includes(query) || 
-            bm.url.toLowerCase().includes(query)
-        );
+        const query = e.target.value.toLowerCase().trim();
+
+        // БЕСТ ПРАКТИС 1: Если поле пустое, возвращаем все закладки
+        if (query.length === 0) {
+            renderUI(allBookmarks);
+            return;
+        }
+
+        // БЕСТ ПРАКТИС 2: Ждем ввода минимум 2 символов
+        if (query.length === 1) {
+            return; // Ничего не делаем, ждем вторую букву
+        }
+
+        // БЕСТ ПРАКТИС 3: Умный поиск
+        const filtered = allBookmarks.filter(bm => {
+            const inTitle = bm.title.toLowerCase().includes(query);
+            
+            // Очищаем URL от http://, https:// и www. для честного поиска
+            const cleanUrl = bm.url.toLowerCase().replace(/^https?:\/\/(www\.)?/, '');
+            const inUrl = cleanUrl.includes(query);
+            
+            return inTitle || inUrl;
+        });
+        
         renderUI(filtered);
     });
 });
