@@ -121,7 +121,15 @@ function renderUI(bookmarks) {
             // 3. Создаем заголовок безопасно (через textContent)
             const titleDiv = document.createElement('div');
             titleDiv.className = 'bookmark-title';
-            titleDiv.textContent = bm.title || bm.url;
+            
+            let displayTitle = bm.title || bm.url;
+            // Проверяем, что строка не пустая и НЕ начинается с цифры
+            if (displayTitle && !/^\d/.test(displayTitle)) {
+                // Делаем первую букву заглавной, остальной текст оставляем как есть
+                displayTitle = displayTitle.charAt(0).toUpperCase() + displayTitle.slice(1);
+            }
+            
+            titleDiv.textContent = displayTitle;
 
             // 4. Создаем подпись со ссылкой безопасно
             const urlSpan = document.createElement('span');

@@ -127,7 +127,9 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #1a73e8;
+    color: #000000; /* Черный цвет */
+    font-weight: bold; /* Жирное начертание */
+    font-size: 14px;
 }
 
 .bookmark-url {
