@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "BO Finder",
   "version": "1.0",
-  "description": "Отображает закладки из указанной папки в алфавитном порядке",
+  "description": "Displays bookmarks from a specified folder in alphabetical order",
   "permissions": [
     "bookmarks",
     "favicon"
@@ -15,7 +15,7 @@
   },
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Открыть закладки",
+   "default_title": "Open bookmarks",
     "default_icon": {
       "16": "icon.png",
       "32": "icon.png",

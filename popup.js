@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const folderNode = findFolderNode(tree, TARGET_FOLDER_NAME);
     
     if (!folderNode) {
-        document.getElementById('content').innerHTML = `<p style="color:red">Папка "${TARGET_FOLDER_NAME}" не найдена.</p>`;
+        document.getElementById('content').innerHTML = `<p style="color:red">Folder "${TARGET_FOLDER_NAME}" not found.</p>`;
         return;
     }
 
@@ -97,7 +97,7 @@ function renderUI(bookmarks, query = '') {
     
     if (bookmarks.length === 0) {
         sidebar.innerHTML = '';
-        content.innerHTML = '<p style="color:#5f6368">Ничего не найдено.</p>';
+        content.innerHTML = '<p style="color:#5f6368">No bookmarks found.</p>';
         return;
     }
 
