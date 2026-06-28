@@ -246,4 +246,10 @@ body {
     
     .sidebar::-webkit-scrollbar-thumb { background: #5f6368; }
     .sidebar::-webkit-scrollbar-thumb:hover { background: #80868b; }
+
+    /* Адаптация цвета ошибки для темной темы */
+    .input-error {
+        border-color: #f28b82 !important; /* Мягкий красный (Material Dark Red) */
+        background-color: rgba(242, 139, 130, 0.15) !important; /* Полупрозрачный красный фон */
+    }
 }
