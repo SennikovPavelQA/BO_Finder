@@ -92,25 +92,19 @@ function extractLinks(node) {
 
 // Отрисовка интерфейса
 function renderUI(bookmarks, query = '') {
-    const sidebar = document.getElementById('sidebar');
     const content = document.getElementById('content');
     
     if (bookmarks.length === 0) {
-        sidebar.innerHTML = '';
         content.innerHTML = '<p style="color:#5f6368">No bookmarks found.</p>';
         return;
     }
 
     // Группируем и сортируем закладки
     const groups = groupAndSort(bookmarks);
-
-    let sidebarHTML = '';
     let contentHTML = '';
 
     // Формируем HTML через шаблонные строки
     for (const letter of Object.keys(groups).sort()) {
-        sidebarHTML += `<div data-letter="${letter}">${letter}</div>`;
-
         contentHTML += `
             <div class="letter-group" id="group-${letter}">
                 <div class="letter-title">${letter}</div>
@@ -142,17 +136,7 @@ function renderUI(bookmarks, query = '') {
     }
 
     // Вставляем сформированный HTML в DOM
-    sidebar.innerHTML = sidebarHTML;
     content.innerHTML = contentHTML;
-
-    // Вешаем слушатели событий
-    sidebar.querySelectorAll('div').forEach(letterNav => {
-        letterNav.addEventListener('click', (e) => {
-            const letter = e.target.dataset.letter;
-            const section = document.getElementById(`group-${letter}`);
-            if (section) section.scrollIntoView();
-        });
-    });
 }
 
 // Логика группировки по первой букве
