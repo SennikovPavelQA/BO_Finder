@@ -13,16 +13,16 @@ A minimalist Google Chrome extension that extracts, alphabetically sorts, and be
 * **Minimalist UI:** Clean interface with no distractions, focusing entirely on your links and search input.
 * **Input Validation:** Prevents invalid character inputs (like Cyrillic) with a native visual shake animation.
 
-## 🚀 Installation (Developer Mode)
+## 🚀 Installation
 
-Since this extension is not currently published in the Chrome Web Store, you can install it manually:
-
-1. Clone this repository or download the ZIP file and extract it.
-2. Open Google Chrome and navigate to `chrome://extensions/`.
-3. Enable **Developer mode** (toggle switch in the top right corner).
-4. Click the **Load unpacked** button in the top left.
-5. Select the folder containing the extension files.
-6. The extension icon will appear in your browser toolbar!
+1. Go to the **[Releases](https://github.com/SennikovPavelQA/BO_Finder/releases/tag/v1.0.0)** page of this repository.
+2. Download the `BO_Finder.zip` file from the latest release.
+3. Extract the downloaded ZIP archive to any folder on your computer.
+4. Open Google Chrome and navigate to `chrome://extensions/`.
+5. Enable **Developer mode** (toggle switch in the top right corner).
+6. Click the **Load unpacked** button in the top left.
+7. Select the folder where you extracted the files.
+8. The extension is now installed and ready to use!
 
 ## ⚙️ Configuration
 
