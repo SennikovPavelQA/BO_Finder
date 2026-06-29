@@ -1,6 +1,6 @@
-<p align="center">
-  <img src="icon.png" width="128" alt="BO Finder Logo">
-</p>
+<h1>
+  <img src="icon.png" width="48" align="top" alt="BO Finder Logo"> BO Finder - Chrome Extension
+</h1>
 
 # BO Finder - Chrome Extension
 
