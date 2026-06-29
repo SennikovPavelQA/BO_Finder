@@ -1,5 +1,5 @@
 <h1>
-  <img src="icon.png" width="48" align="center" alt="BO Finder Logo"> BO Finder - Chrome Extension
+  <img src="icon.png" width="48" align="absmiddle" alt="BO Finder Logo">&nbsp;&nbsp;BO Finder - Chrome Extension
 </h1>
 
 A minimalist Google Chrome extension that extracts, alphabetically sorts, and beautifully displays bookmarks from a specific target folder. Designed for speed, simplicity, and ease of use.
