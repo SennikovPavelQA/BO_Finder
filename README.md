@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="icon.png" width="128" alt="BO Finder Logo">
+</p>
+
 # BO Finder - Chrome Extension
 
 A minimalist Google Chrome extension that extracts, alphabetically sorts, and beautifully displays bookmarks from a specific target folder. Designed for speed, simplicity, and ease of use.
