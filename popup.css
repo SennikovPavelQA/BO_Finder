@@ -38,41 +38,10 @@ body {
     overflow: hidden;
 }
 
-.sidebar {
-    width: 40px;
-    background-color: #ffffff;
-    border-right: 1px solid #e0e0e0;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px 0;
-}
-
-.sidebar div {
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
-    text-align: center;
-    border-radius: 50%;
-    font-size: 12px;
-    font-weight: bold;
-    color: #5f6368;
-    cursor: pointer;
-    margin-bottom: 4px;
-    transition: background-color 0.2s;
-}
-
-.sidebar div:hover {
-    background-color: #e8f0fe;
-    color: #1a73e8;
-}
-
 .content {
     flex: 1;
     padding: 15px;
     overflow-y: auto;
-    scroll-behavior: smooth; /* Плавная прокрутка при клике на букву */
 }
 
 .letter-group {
@@ -84,7 +53,7 @@ body {
     font-weight: bold;
     color: #202124;
     border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 5px;
+    padding: 0 10px 5px 10px; /* Добавили 10px слева и справа */
     margin-bottom: 10px;
 }
 
@@ -148,21 +117,6 @@ body {
 ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #999; }
 
-/* Ультратонкий скроллбар для боковой панели */
-.sidebar::-webkit-scrollbar {
-    width: 2px;
-}
-.sidebar::-webkit-scrollbar-track {
-    background: transparent;
-}
-.sidebar::-webkit-scrollbar-thumb {
-    background: #e0e0e0; 
-    border-radius: 10px;
-}
-.sidebar::-webkit-scrollbar-thumb:hover {
-    background: #bdbdbd;
-}
-
 /* Анимация ошибки ввода */
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
@@ -191,8 +145,7 @@ body {
         background-color: #202124;
     }
     
-    .search-container, 
-    .sidebar {
+    .search-container {
         background-color: #292a2d;
         border-color: #3c4043;
     }
@@ -216,18 +169,12 @@ body {
         color: #e8eaed;
     }
     
-    .bookmark-url, 
-    .sidebar div {
+    .bookmark-url {
         color: #9aa0a6;
     }
     
-    .sidebar div:hover, 
     .bookmark-item:hover {
         background-color: rgba(255, 255, 255, 0.08); /* Полупрозрачный фон наведения */
-    }
-    
-    .sidebar div:hover {
-        color: #8ab4f8;
     }
     
     .bookmark-item {
@@ -243,9 +190,6 @@ body {
     /* Адаптация скроллбара */
     ::-webkit-scrollbar-thumb { background: #5f6368; }
     ::-webkit-scrollbar-thumb:hover { background: #80868b; }
-    
-    .sidebar::-webkit-scrollbar-thumb { background: #5f6368; }
-    .sidebar::-webkit-scrollbar-thumb:hover { background: #80868b; }
 
     /* Адаптация цвета ошибки для темной темы */
     .input-error {
