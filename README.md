@@ -18,7 +18,7 @@ A minimalist Google Chrome extension that extracts, alphabetically sorts, and be
 1. Go to the **[Releases](https://github.com/SennikovPavelQA/BO_Finder/releases/tag/v1.0.0)** page of this repository.
 2. Download the `BO_Finder.zip` file from the latest release.
 3. Extract the downloaded ZIP archive to any folder on your computer.
-4. Open Google Chrome and navigate to `chrome://extensions/`.
+4. Open Google Chrome and navigate to **[chrome://extensions/](chrome://extensions/)**.
 5. Enable **Developer mode** (toggle switch in the top right corner).
 6. Click the **Load unpacked** button in the top left.
 7. Select the folder where you extracted the files.
